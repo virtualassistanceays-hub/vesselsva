@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vessels Virtual Assistance — Video Editing for Ecommerce Brands</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#32367C;
+    --navy-deep:#1E2158;
+    --cream:#F6EAD6;
+    --paper:#FBF7EE;
+    --ink:#17181C;
+    --ink-soft:#54545E;
+    --ink-faint:#8A8A96;
+    --line:#E4DCC9;
+    --line-dark:rgba(246,234,214,0.16);
+    --radius:16px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-family:'Archivo Black',sans-serif; font-weight:400; letter-spacing:-0.01em; line-height:1.08; color:var(--ink);}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+  section{position:relative;}
+
+  .timeline-rule{position:relative; height:1px; background:var(--line); margin:0 32px;}
+  .timeline-rule::before{content:''; position:absolute; top:-3px; left:0; width:7px; height:7px; border-radius:50%; background:var(--navy);}
+
+  .eyebrow{display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.06em; color:var(--navy); margin-bottom:18px;}
+  .eyebrow::before{content:''; width:8px; height:8px; background:var(--navy); border-radius:50%; flex-shrink:0;}
+  .eyebrow.on-dark{color:var(--cream);}
+  .eyebrow.on-dark::before{background:var(--cream);}
+
+  /* ---------- Nav ---------- */
+  header.nav{position:sticky; top:0; z-index:50; background:rgba(251,247,238,0.88); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:var(--maxw); margin:0 auto; padding:16px 32px; display:flex; align-items:center; justify-content:space-between;}
+  .logo{display:flex; align-items:center; gap:11px;}
+  .v-chip{width:38px; height:38px; background:var(--navy); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .v-chip span{font-family:'Archivo Black',sans-serif; color:var(--cream); font-size:19px; line-height:1;}
+  .logo .word{font-family:'Archivo Black',sans-serif; font-size:15px; letter-spacing:-0.01em;}
+  .logo .sub{display:block; font-family:'IBM Plex Mono',monospace; font-weight:400; font-size:9.5px; color:var(--ink-faint); letter-spacing:0.06em; margin-top:1px;}
+  nav.links{display:flex; gap:30px; font-size:14.5px; font-weight:500;}
+  nav.links a{color:var(--ink-soft); transition:color .15s;}
+  nav.links a:hover{color:var(--ink);}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 22px; border-radius:999px; font-size:14.5px; font-weight:600; font-family:'Inter',sans-serif; cursor:pointer; border:1px solid transparent; transition:transform .15s ease, background .15s ease, border-color .15s ease; white-space:nowrap;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--navy); color:var(--cream);}
+  .btn-primary:hover{background:var(--navy-deep);}
+  .btn-cream{background:var(--cream); color:var(--navy-deep);}
+  .btn-cream:hover{background:#fff;}
+  .btn-ghost{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--ink-faint);}
+  .btn-ghost-dark{background:transparent; color:var(--cream); border-color:var(--line-dark);}
+  .btn-ghost-dark:hover{border-color:var(--cream);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:88px 0 0;}
+  .hero-grid{display:grid; grid-template-columns:1fr 0.92fr; gap:56px; align-items:center; padding-bottom:80px;}
+  .hero h1{font-size:46px; margin-bottom:22px;}
+  .hero p.lede{font-size:17.5px; color:var(--ink-soft); max-width:480px; margin-bottom:32px;}
+  .hero-actions{display:flex; align-items:center; gap:16px; margin-bottom:20px; flex-wrap:wrap;}
+  .hero-note{font-size:13px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;}
+
+  /* Hero photo + floating brand badge */
+  .hero-visual{position:relative; padding-bottom:34px; padding-right:28px;}
+  .hero-photo-wrap{position:relative; border-radius:24px; overflow:hidden; box-shadow:0 40px 70px -35px rgba(30,33,88,0.45);}
+  .hero-photo{width:100%; height:520px; object-fit:cover; display:block;}
+  .hero-photo-wrap::after{content:''; position:absolute; inset:0; background:linear-gradient(165deg, rgba(50,54,124,0.42) 0%, rgba(30,33,88,0.08) 45%, rgba(23,24,28,0.5) 100%);}
+  .hero-badge{position:absolute; left:0; bottom:0; background:var(--navy); border-radius:16px; padding:14px 20px 14px 14px; display:flex; align-items:center; gap:14px; box-shadow:0 24px 40px -20px rgba(30,33,88,0.55);}
+  .hero-badge .v-chip{width:42px; height:42px;}
+  .hero-badge .v-chip span{font-size:20px;}
+  .hero-badge-text{display:flex; flex-direction:column; gap:3px;}
+  .hero-badge-text span{font-size:10.5px; color:rgba(246,234,214,0.6); letter-spacing:0.04em;}
+  .hero-badge-text strong{font-family:'Archivo Black',sans-serif; font-size:14px; color:var(--cream); font-weight:400;}
+
+  /* ---------- Marquee proof ticker ---------- */
+  .marquee-band{background:var(--navy-deep); overflow:hidden; padding:16px 0; border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark);}
+  .marquee-track{display:flex; width:max-content; animation:scrollLeft 32s linear infinite;}
+  .marquee-track span{display:inline-flex; align-items:center; font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--cream); letter-spacing:0.04em; padding:0 28px; white-space:nowrap;}
+  .marquee-track span em{font-style:normal; color:#8B8FCF; margin-left:10px;}
+  @keyframes scrollLeft{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} }
+
+  /* ---------- Trust strip ---------- */
+  .trust{padding:40px 0; border-bottom:1px solid var(--line);}
+  .trust-inner{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;}
+  .trust-label{font-size:13px; color:var(--ink-faint); max-width:210px;}
+  .trust-stats{display:flex; gap:44px; flex-wrap:wrap;}
+  .trust-stats .num{font-family:'Archivo Black',sans-serif; font-size:24px; color:var(--navy);}
+  .trust-stats .lbl{font-size:12.5px; color:var(--ink-faint); margin-top:3px;}
+
+  /* ---------- Simple single-price card (Clipt-style) ---------- */
+  .price-simple{max-width:560px; margin:0 auto; background:var(--navy); border-radius:20px; padding:44px 44px 40px; color:var(--cream); text-align:center; box-shadow:0 40px 70px -35px rgba(30,33,88,0.45);}
+  .price-simple .plan-vessel{color:rgba(246,234,214,0.55); justify-content:center;}
+  .price-simple .price-from{font-size:14px; color:rgba(246,234,214,0.65); margin-top:6px;}
+  .price-simple .price{font-family:'Archivo Black',sans-serif; font-size:52px; margin:6px 0 4px; color:var(--cream);}
+  .price-simple .price span{font-size:16px; font-family:'Inter',sans-serif; font-weight:400; color:rgba(246,234,214,0.6);}
+  .price-simple ul{list-style:none; text-align:left; max-width:360px; margin:28px auto 30px;}
+  .price-simple ul li{font-size:14.5px; padding:10px 0; border-top:1px solid var(--line-dark); display:flex; gap:10px;}
+  .price-simple ul li::before{content:'✓'; color:var(--cream); flex-shrink:0; font-weight:700;}
+  .price-note{text-align:center; max-width:520px; margin:24px auto 0; font-size:14px; color:var(--ink-soft);}
+  .price-note a{color:var(--navy); font-weight:700;}
+  .price-note a:hover{text-decoration:underline;}
+
+  /* ---------- Value prop cards (blunt, Clipt-style) ---------- */
+  .value-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .value-card{background:#fff; padding:32px 28px;}
+  .value-kicker{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.08em; color:var(--navy); margin-bottom:14px;}
+  .value-card h3{font-size:26px; margin-bottom:10px;}
+  .value-card p{font-size:14.5px; color:var(--ink-soft); margin-bottom:18px;}
+  .value-card a{font-size:13.5px; font-weight:700; color:var(--navy);}
+  .value-card a:hover{text-decoration:underline;}
+
+  .section{padding:92px 0;}
+  .section-head{max-width:600px; margin-bottom:52px;}
+  .section-head h2{font-size:34px; margin-bottom:16px;}
+  .section-head p{color:var(--ink-soft); font-size:16.5px;}
+
+  /* ---------- Proof / services grid ---------- */
+  .proof-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .proof-card{background:#fff; transition:background .15s ease; display:flex; flex-direction:column;}
+  .proof-card:hover{background:var(--cream);}
+  .proof-thumb{position:relative; height:128px; overflow:hidden;}
+  .proof-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .proof-thumb::after{content:''; position:absolute; inset:0; background:linear-gradient(160deg, rgba(50,54,124,0.55), rgba(30,33,88,0.15) 55%, rgba(23,24,28,0.1));}
+  .proof-body{padding:22px 24px 28px;}
+  .proof-check{width:26px; height:26px; border-radius:50%; background:var(--navy); color:var(--cream); font-size:13px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; font-weight:700;}
+  .proof-card h3{font-size:16.5px; margin-bottom:9px; font-family:'Inter',sans-serif; font-weight:700;}
+  .proof-card p{font-size:13.8px; color:var(--ink-soft);}
+
+  /* ---------- Pricing ---------- */
+  .pricing-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:stretch;}
+  .plan{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:32px 28px; display:flex; flex-direction:column;}
+  .plan.featured{background:var(--navy); color:var(--cream); border-color:var(--navy); position:relative; box-shadow:0 30px 60px -35px rgba(30,33,88,0.45);}
+  .plan.featured h3, .plan.featured .price{color:var(--cream);}
+  .plan.featured .desc{color:rgba(246,234,214,0.7);}
+  .plan.featured .plan-vessel{color:rgba(246,234,214,0.55);}
+  .plan.featured ul li{color:var(--cream); border-top:1px solid var(--line-dark);}
+  .plan.featured ul li::before{color:var(--cream);}
+  .plan-badge{position:absolute; top:-13px; left:28px; background:var(--cream); color:var(--navy-deep); font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 12px; border-radius:999px;}
+  .plan-vessel{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); margin-bottom:6px; text-transform:uppercase; letter-spacing:.05em;}
+  .plan h3{font-size:22px; margin-bottom:8px; font-family:'Archivo Black',sans-serif;}
+  .plan .price{font-family:'Archivo Black',sans-serif; font-size:32px; margin:12px 0 6px;}
+  .plan .price span{font-size:14px; font-family:'Inter',sans-serif; font-weight:400; color:var(--ink-faint);}
+  .plan .desc{font-size:14px; color:var(--ink-soft); margin-bottom:20px;}
+  .plan ul{list-style:none; margin-bottom:26px; flex-grow:1;}
+  .plan ul li{font-size:13.8px; padding:9px 0; border-top:1px solid var(--line); display:flex; gap:10px;}
+  .plan ul li::before{content:'✓'; color:var(--navy); flex-shrink:0; font-weight:700;}
+  .plan .btn{width:100%;}
+
+  /* ---------- Process ---------- */
+  .process-item{display:grid; grid-template-columns:110px 1fr; gap:28px; padding:26px 0; border-top:1px solid var(--line); align-items:start;}
+  .process-item:last-child{border-bottom:1px solid var(--line);}
+  .process-item .tc{font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--navy); padding-top:4px;}
+  .process-item h3{font-size:18px; margin-bottom:8px; font-family:'Inter',sans-serif; font-weight:700;}
+  .process-item p{color:var(--ink-soft); font-size:14.5px; max-width:520px;}
+
+  /* ---------- Testimonials ---------- */
+  .testimonial-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .testimonial{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:28px;}
+  .testimonial p.quote{font-size:15px; color:var(--ink); margin-bottom:20px; line-height:1.6;}
+  .who{display:flex; align-items:center; gap:12px;}
+  .avatar{width:36px; height:36px; border-radius:8px; background:var(--navy); color:var(--cream); display:flex; align-items:center; justify-content:center; font-family:'Archivo Black',sans-serif; font-size:12.5px;}
+  .who .name{font-size:13.5px; font-weight:700;}
+  .who .role{font-size:12px; color:var(--ink-faint);}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:760px;}
+  .faq-item{border-top:1px solid var(--line);}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%; text-align:left; background:none; border:none; padding:22px 4px; font-family:'Inter',sans-serif; font-size:16px; font-weight:700; color:var(--ink); display:flex; justify-content:space-between; align-items:center; cursor:pointer; gap:20px;}
+  .faq-q .plus{font-family:'IBM Plex Mono',monospace; font-size:18px; color:var(--navy); transition:transform .2s ease; flex-shrink:0;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease;}
+  .faq-a p{padding:0 4px 22px; font-size:14.5px; color:var(--ink-soft); max-width:600px;}
+
+  /* ---------- CTA / Footer ---------- */
+  .cta-band{background:var(--navy); border-radius:22px; margin:0 32px; padding:60px 54px; display:flex; justify-content:space-between; align-items:center; gap:32px; flex-wrap:wrap; color:var(--cream);}
+  .cta-band h2{color:var(--cream); font-size:30px; max-width:420px;}
+  .cta-band p{color:rgba(246,234,214,0.7); margin-top:10px; font-size:15px;}
+
+  /* ---------- Contact form ---------- */
+  .contact-wrap{display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; align-items:start;}
+  .contact-form{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:32px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
+  .form-field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
+  .form-field.full{grid-column:1/-1;}
+  .form-field label{font-size:13px; font-weight:600; color:var(--ink);}
+  .form-field input, .form-field select, .form-field textarea{
+    font-family:'Inter',sans-serif; font-size:14.5px; padding:11px 14px;
+    border:1px solid var(--line); border-radius:9px; background:var(--paper); color:var(--ink);
+  }
+  .form-field textarea{resize:vertical; min-height:100px;}
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{outline:2px solid var(--navy); outline-offset:1px;}
+  .form-note{font-size:12.5px; color:var(--ink-faint); margin-top:14px;}
+  .form-status{font-size:13.5px; margin-top:12px; display:none;}
+  .form-status.success{color:var(--navy); display:block;}
+  .form-status.error{color:#B23A3A; display:block;}
+
+  footer{padding:60px 0 40px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:44px;}
+  .footer-brand p{font-size:13.5px; color:var(--ink-faint); margin-top:14px; max-width:260px;}
+  .footer-col h4{font-size:12.5px; color:var(--ink-faint); font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-bottom:16px;}
+  .footer-col ul{list-style:none;}
+  .footer-col li{margin-bottom:11px;}
+  .footer-col a{font-size:14px; color:var(--ink-soft);}
+  .footer-col a:hover{color:var(--ink);}
+  .footer-bottom{padding-top:26px; border-top:1px solid var(--line); display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-faint); flex-wrap:wrap; gap:10px;}
+
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} }
+
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr; gap:44px;}
+    .contact-wrap{grid-template-columns:1fr;}
+    .proof-grid{grid-template-columns:repeat(2,1fr);}
+    .pricing-grid{grid-template-columns:1fr;}
+    .testimonial-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    nav.links{display:none;}
+  }
+  @media (max-width:620px){
+    .wrap{padding:0 20px;}
+    .form-row{grid-template-columns:1fr;}
+    .hero h1{font-size:32px;}
+    .hero-photo{height:340px;}
+    .hero-visual{padding-right:16px; padding-bottom:24px;}
+    .hero-badge{padding:10px 16px 10px 10px; gap:10px;}
+    .hero-badge .v-chip{width:34px; height:34px;}
+    .proof-grid{grid-template-columns:1fr;}
+    .trust-inner{flex-direction:column; align-items:flex-start;}
+    .cta-band{margin:0 20px; padding:38px 26px; flex-direction:column; align-items:flex-start;}
+    .footer-grid{grid-template-columns:1fr;}
+    .process-item{grid-template-columns:1fr; gap:8px;}
+    .timeline-rule{margin:0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top">
+      <div class="v-chip"><span>V.</span></div>
+      <div><span class="word">VESSELS</span><span class="sub">VIRTUAL ASSISTANCE</span></div>
+    </a>
+    <nav class="links">
+      <a href="#proof">Proof</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#process">Process</a>
+      <a href="#testimonials">Results</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary" href="https://calendly.com/vessels-va/strategy-call" target="_blank" rel="noopener">Book a call</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">VIDEO EDITING FOR ECOMMERCE BRANDS</div>
+      <h1>We help ecommerce brands scale with performance-driven video editing.</h1>
+      <p class="lede">Send us your raw footage and UGC — we send back ad creative built to convert. Direct response ads, VSLs, AI editing, short-form, and more, cut by an editor who thinks in conversions, not just cuts. No film crews, no shoot days — just faster creative testing for your ad account.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://calendly.com/vessels-va/strategy-call" target="_blank" rel="noopener">Book a free strategy call</a>
+        <a class="btn btn-ghost" href="#proof">See the proof</a>
+      </div>
+      <div class="hero-note">Editing only, no production · Same-day delivery on standard requests</div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="https://images.pexels.com/photos/30229850/pexels-photo-30229850.jpeg?auto=compress&cs=tinysrgb&h=900&w=1200" alt="Close-up of a professional video editing workstation with color grading on screen" loading="lazy">
+      </div>
+      <div class="hero-badge">
+        <div class="v-chip"><span>V.</span></div>
+        <div class="hero-badge-text">
+          <span class="mono">PROJECT · BRAND_SCALE_01</span>
+          <strong>Now cutting</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span>DIRECT RESPONSE ADS <em>✓</em></span>
+    <span>VSLs <em>✓</em></span>
+    <span>AI EDITING <em>✓</em></span>
+    <span>LONG-FORM <em>✓</em></span>
+    <span>SHORT-FORM <em>✓</em></span>
+    <span>PODCASTS <em>✓</em></span>
+    <span>SOCIAL MEDIA CONTENT <em>✓</em></span>
+    <span>DIRECT RESPONSE ADS <em>✓</em></span>
+    <span>VSLs <em>✓</em></span>
+    <span>AI EDITING <em>✓</em></span>
+    <span>LONG-FORM <em>✓</em></span>
+    <span>SHORT-FORM <em>✓</em></span>
+    <span>PODCASTS <em>✓</em></span>
+    <span>SOCIAL MEDIA CONTENT <em>✓</em></span>
+  </div>
+</div>
+
+<section class="trust">
+  <div class="wrap trust-inner">
+    <p class="trust-label">Every format is measured against the same thing: does it move ROAS.</p>
+    <div class="trust-stats">
+      <div><div class="num">120+</div><div class="lbl">ecommerce brands scaled</div></div>
+      <div><div class="num">6,400+</div><div class="lbl">assets delivered</div></div>
+      <div><div class="num">7</div><div class="lbl">content formats</div></div>
+      <div><div class="num">24hr</div><div class="lbl">avg. turnaround</div></div>
+      <div><div class="num">98%</div><div class="lbl">client retention</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="value-grid reveal">
+      <div class="value-card">
+        <div class="value-kicker">PERFORMANCE-FIRST</div>
+        <h3>Cut for conversion</h3>
+        <p>Every edit is built around the metric you're trying to move — CTR, hook rate, ROAS — not just watch time.</p>
+        <a href="#proof">See the formats →</a>
+      </div>
+      <div class="value-card">
+        <div class="value-kicker">FAST TURNAROUND</div>
+        <h3>24hr average</h3>
+        <p>Standard requests turn around in a day, not a week. Same-day delivery on Sloop and above.</p>
+        <a href="#pricing">See turnaround by plan →</a>
+      </div>
+      <div class="value-card">
+        <div class="value-kicker">NO OVERHEAD</div>
+        <h3>Skip the hire</h3>
+        <p>No job posts, no screening, no payroll. Send footage, get ad-ready creative back.</p>
+        <a href="#contact">Start now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="proof">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">00:00:04:12 — THE PROOF</div>
+      <h2>Seven formats. One performance promise.</h2>
+      <p>Every format we touch is built to move a metric — CTR, hook rate, ROAS — not just rack up views.</p>
+    </div>
+    <div class="proof-grid reveal">
+      <div class="proof-card">
+        <div class="proof-thumb"><img src="https://images.pexels.com/photos/24709142/pexels-photo-24709142.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Smartphone screen mockup used for ad creative" loading="lazy"></div>
+        <div class="proof-body">
+          <div class="proof-check">✓</div>
+          <h3>Direct Response Ads</h3>
+          <p>Cut to hook, hold, and convert inside the first three seconds.</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-thumb"><img src="https://images.pexels.com/photos/7015031/pexels-photo-7015031.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Person working at a laptop drafting a sales narrative" loading="lazy"></div>
+        <div class="proof-body">
+          <div class="proof-check">✓</div>
+          <h3>VSLs</h3>
+          <p>Long-form sales narratives paced to close, not just inform.</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-thumb"><img src="https://images.pexels.com/photos/29505140/pexels-photo-29505140.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Close-up of a video editing timeline interface" loading="lazy"></div>
+        <div class="proof-body">
+          <div class="proof-check">✓</div>
+          <h3>AI Editing</h3>
+          <p>AI-assisted rough cuts refined by a human editor, for faster turnarounds.</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-thumb"><img src="https://images.pexels.com/photos/4662717/pexels-photo-4662717.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Professional film camera on a tripod in studio" loading="lazy"></div>
+        <div class="proof-body">
+          <div class="proof-check">✓</div>
+          <h3>Long-form</h3>
+          <p>Podcasts, YouTube, and webinars edited for watch time and retention.</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-thumb"><img src="https://images.pexels.com/photos/14147747/pexels-photo-14147747.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Hand holding a smartphone recording vertical video" loading="lazy"></div>
+        <div class="proof-body">
+          <div class="proof-check">✓</div>
+          <h3>Short-form</h3>
+          <p>Reels, TikToks, and Shorts built for the algorithm and the scroll.</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-thumb"><img src="https://images.pexels.com/photos/34519002/pexels-photo-34519002.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Professional podcast studio setup with camera and microphone" loading="lazy"></div>
+        <div class="proof-body">
+          <div class="proof-check">✓</div>
+          <h3>Podcasts</h3>
+          <p>Full episode edits with sound design, chapters, and clip-ready moments.</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-thumb"><img src="https://images.pexels.com/photos/16852355/pexels-photo-16852355.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Smartphone displaying social media app icons" loading="lazy"></div>
+        <div class="proof-body">
+          <div class="proof-check">✓</div>
+          <h3>Social Media Content</h3>
+          <p>Native-feeling content calendars, not repurposed leftovers.</p>
+        </div>
+      </div>
+      <div class="proof-card" style="display:flex; align-items:center; justify-content:center; padding:28px;">
+        <a class="btn btn-primary" href="#pricing">Get your vessel</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="timeline-rule"></div>
+
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">00:00:09:00 — PRICING</div>
+      <h2>Pick your vessel.</h2>
+      <p>Every plan includes a dedicated editor, unlimited revisions, and a shared board to track your cut in real time — you send the footage and UGC, we send back ad-ready creative.</p>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="plan">
+        <div class="plan-vessel mono">// SKIFF</div>
+        <h3>Solo</h3>
+        <div class="price">$897<span>/mo</span></div>
+        <div class="desc">For ecommerce brands testing one or two ad angles before scaling spend.</div>
+        <ul>
+          <li>Up to 8 ad creatives / mo, 2 hooks each</li>
+          <li>24hr average turnaround</li>
+          <li>1 dedicated editor</li>
+          <li>Shared review board</li>
+          <li>Unlimited revisions</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Start with Skiff</a>
+      </div>
+      <div class="plan featured">
+        <span class="plan-badge">MOST BOOKED</span>
+        <div class="plan-vessel mono">// SLOOP</div>
+        <h3>Growth</h3>
+        <div class="price">$2,400<span>/mo</span></div>
+        <div class="desc">For ecommerce brands running always-on paid social with a dedicated editor.</div>
+        <ul>
+          <li>Up to 20 videos / mo, 3 hook variants each</li>
+          <li>Same-day delivery on standard requests</li>
+          <li>1 dedicated editor + backup</li>
+          <li>Priority queue</li>
+          <li>AI-assisted rough cuts included</li>
+          <li>Unlimited revisions</li>
+        </ul>
+        <a class="btn btn-cream" href="#contact">Start with Sloop</a>
+      </div>
+      <div class="plan">
+        <div class="plan-vessel mono">// FREIGHTER</div>
+        <h3>Agency</h3>
+        <div class="price">Custom</div>
+        <div class="desc">For agencies and media buyers running ecommerce ad accounts at volume.</div>
+        <ul>
+          <li>Unlimited volume</li>
+          <li>Multiple editors, one lead</li>
+          <li>White-label delivery</li>
+          <li>Dedicated project manager</li>
+          <li>Custom SLA & reporting</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="timeline-rule"></div>
+
+<section class="section" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">00:00:14:20 — HOW IT WORKS</div>
+      <h2>No job posts. No screening. No headaches.</h2>
+    </div>
+    <div class="reveal">
+      <div class="process-item">
+        <div class="tc mono">01</div>
+        <div><h3>Tell us what you need</h3><p>Send your raw footage or UGC and the metric this piece needs to move. We edit only — no shoots, no production lead time.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="tc mono">02</div>
+        <div><h3>We match your editor</h3><p>You're paired with a dedicated editor who learns your brand, pacing, and ad style — not a rotating pool.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="tc mono">03</div>
+        <div><h3>Start shipping creative</h3><p>Approve cuts, request revisions on a shared board, and get ad-ready files on repeat.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="timeline-rule"></div>
+
+<section class="section" id="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">00:00:21:08 — RESULTS</div>
+      <h2>What it's like when the edit works harder.</h2>
+    </div>
+    <div class="testimonial-grid reveal">
+      <div class="testimonial">
+        <p class="quote">"Our hook rate on paid ads jumped the first week we switched. It's the first agency that's edited like it owns the media budget too."</p>
+        <div class="who"><div class="avatar">MR</div><div><div class="name">Mara R.</div><div class="role">Growth lead, DTC brand</div></div></div>
+      </div>
+      <div class="testimonial">
+        <p class="quote">"We run VSLs weekly. Vessels is the only editor that's ever asked what our close rate was before touching the timeline."</p>
+        <div class="who"><div class="avatar">DK</div><div><div class="name">Devon K.</div><div class="role">Founder, DTC skincare brand</div></div></div>
+      </div>
+      <div class="testimonial">
+        <p class="quote">"We route twelve client accounts through Vessels. The review board alone replaced three tools we used to juggle."</p>
+        <div class="who"><div class="avatar">PA</div><div><div class="name">Priya A.</div><div class="role">Ops lead, media agency</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="timeline-rule"></div>
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">00:00:26:15 — QUESTIONS</div>
+      <h2>Before you send your first clip.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item"><button class="faq-q">What's the difference between Skiff, Sloop, and Freighter? <span class="plus">+</span></button><div class="faq-a"><p><strong>Skiff</strong> (from $897/mo) is for brands testing one or two ad angles before scaling spend — up to 8 ad creatives a month. <strong>Sloop</strong> (from $2,400/mo) is our most-booked plan: a dedicated editor producing up to 20 videos a month, 3 hook variants each, for brands running always-on paid social. <strong>Freighter</strong> is custom pricing for agencies and media buyers running volume across multiple accounts, with multiple editors and white-label delivery.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Do you shoot video, or just edit? <span class="plus">+</span></button><div class="faq-a"><p>We're an editing-only service. You send us raw footage or UGC — your own, or from creators and agencies you already work with — and we turn it into finished ad creative. We don't offer filming, shoots, or on-location production.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How fast is turnaround? <span class="plus">+</span></button><div class="faq-a"><p>Standard turnaround is 24 hours for ad edits and short-form. On Sloop and above, standard requests can be delivered same-day within a single edit cycle. VSLs and long-form typically take 2–3 business days. Exact speed depends on footage volume and how much motion graphics work is requested.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Will my editor only work on my content? <span class="plus">+</span></button><div class="faq-a"><p>Yes. Once matched, your editor is dedicated to your account — they learn your brand, your pacing, and your ad style over time instead of starting from zero on every request. A second trained editor is kept on standby for coverage, but you always work with the same primary editor.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Are your editors actually good? <span class="plus">+</span></button><div class="faq-a"><p>Every editor goes through a screening and test-edit process before working with clients, and is trained specifically on direct-response and performance-editing conventions — hooks, pacing, captions, platform specs — not just general video editing. They're also professional and easy to work with: clear communicators, responsive to feedback, and respectful of your time and brand. If a working relationship ever isn't clicking, we handle the re-match, not you.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How many videos can my editor actually produce? <span class="plus">+</span></button><div class="faq-a"><p>Depends on the format, but here are general guidelines: <strong>Short-form / UGC cutdown</strong> — same day. <strong>Direct response ad with hook variants</strong> — 1 video with 3 hooks per day. <strong>VSL or long-form</strong> — 2–3 business days. These are general minimums; once you start working with your editor you'll get a sense of each other's pace.</p></div></div>
+      <div class="faq-item"><button class="faq-q">What do I need to send to get started? <span class="plus">+</span></button><div class="faq-a"><p>Raw footage or UGC, a short creative brief (what metric this piece needs to move, any brand or platform guidelines), and any reference ads or hooks you want us to riff on. If you have asset libraries like Envato Elements or Storyblocks, sharing access speeds things up too.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How do I give feedback and request revisions? <span class="plus">+</span></button><div class="faq-a"><p>Through the shared review board on your preview link — leave timestamped comments the same way you would in Frame.io. You can also loop in Slack, email, or WhatsApp if that's easier for your team.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Do you guarantee ad performance? <span class="plus">+</span></button><div class="faq-a"><p>We can't guarantee performance since that also depends on offer, targeting, and spend — but every cut is built around the metric you tell us to optimize for.</p></div></div>
+      <div class="faq-item"><button class="faq-q">What is AI editing, exactly? <span class="plus">+</span></button><div class="faq-a"><p>We use AI tools to speed up rough cuts, transcription, and clip selection — every final edit is still reviewed and finished by a human editor.</p></div></div>
+      <div class="faq-item"><button class="faq-q">What if I don't like my editor? <span class="plus">+</span></button><div class="faq-a"><p>Tell us directly and we'll help re-match you with someone better suited to your style — no extra cost, no long conversation required.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Do I need to sign a contract? <span class="plus">+</span></button><div class="faq-a"><p>No. Plans are month-to-month. We ask for 30 days' written notice before cancellation so we can wind down your editor's workload cleanly.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="contact-wrap">
+      <div class="reveal">
+        <div class="eyebrow">00:00:31:02 — GET STARTED</div>
+        <h2 style="font-size:32px; margin-bottom:16px;">Tell us what you're shipping.</h2>
+        <p style="color:var(--ink-soft); font-size:16px; margin-bottom:24px;">Fill this out and we'll reply within one business day with next steps — or skip straight to booking a call.</p>
+        <a class="btn btn-primary" href="https://calendly.com/vessels-va/strategy-call" target="_blank" rel="noopener">Book a call instead</a>
+      </div>
+      <form class="contact-form reveal" id="vesselsContactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="company">Company / brand</label>
+            <input type="text" id="company" name="company">
+          </div>
+          <div class="form-field">
+            <label for="plan">Interested in</label>
+            <select id="plan" name="plan">
+              <option value="Skiff">Skiff — Solo</option>
+              <option value="Sloop">Sloop — Growth</option>
+              <option value="Freighter">Freighter — Agency</option>
+              <option value="Not sure">Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field full">
+          <label for="message">What do you need edited?</label>
+          <textarea id="message" name="message" placeholder="Formats, volume, platforms, timelines..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Send it over</button>
+        <div class="form-status" id="formStatus"></div>
+        <p class="form-note">Replace YOUR_FORM_ID in the form action with your real Formspree ID before going live.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="timeline-rule"></div>
+
+<div class="cta-band wrap reveal">
+  <div>
+    <h2>Ready to make your next video the proof?</h2>
+    <p>Book a 20-minute call and we'll match you with your dedicated editor this week.</p>
+  </div>
+  <a class="btn btn-cream" href="https://calendly.com/vessels-va/strategy-call" target="_blank" rel="noopener">Book a free strategy call</a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="#top"><div class="v-chip"><span>V.</span></div><span class="word">VESSELS</span></a>
+        <p>Video editing for ecommerce brands that scale on metrics, not vibes. You send the footage — we send back ad-ready cuts.</p>
+      </div>
+      <div class="footer-col"><h4>Formats</h4><ul><li><a href="#proof">Direct response ads</a></li><li><a href="#proof">VSLs</a></li><li><a href="#proof">Short-form</a></li><li><a href="#proof">Podcasts</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="#pricing">Pricing</a></li><li><a href="#process">Process</a></li><li><a href="#testimonials">Results</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Get in touch</h4><ul><li><a href="mailto:hello@vesselsva.com">hello@vesselsva.com</a></li><li><a href="https://calendly.com/vessels-va/strategy-call" target="_blank" rel="noopener">Book a call</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Vessels Virtual Assistance. All rights reserved.</span>
+      <span class="mono">STATUS: ACCEPTING NEW BRANDS</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q'); const a = item.querySelector('.faq-a');
+    q.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o=>{ if(o!==item){ o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight = null; } });
+      if(isOpen){ item.classList.remove('open'); a.style.maxHeight = null; }
+      else{ item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+  const contactForm = document.getElementById('vesselsContactForm');
+  const formStatus = document.getElementById('formStatus');
+  if(contactForm){
+    contactForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      submitBtn.disabled = true; submitBtn.textContent = 'Sending...';
+      try{
+        const res = await fetch(contactForm.action, {
+          method:'POST',
+          body:new FormData(contactForm),
+          headers:{ 'Accept':'application/json' }
+        });
+        if(res.ok){
+          formStatus.textContent = "Got it — we'll reply within one business day.";
+          formStatus.className = 'form-status success';
+          contactForm.reset();
+        } else {
+          formStatus.textContent = 'Something went wrong. Please email hello@vesselsva.com directly.';
+          formStatus.className = 'form-status error';
+        }
+      } catch(err){
+        formStatus.textContent = 'Something went wrong. Please email hello@vesselsva.com directly.';
+        formStatus.className = 'form-status error';
+      }
+      submitBtn.disabled = false; submitBtn.textContent = 'Send it over';
+    });
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); } }); }, {threshold:0.12});
+    revealEls.forEach(el=>io.observe(el));
+  } else { revealEls.forEach(el=>el.classList.add('in')); }
+</script>
+</body>
+</html>
